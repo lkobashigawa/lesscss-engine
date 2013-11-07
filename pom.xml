@@ -77,8 +77,19 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>test-jar</groupId>
+            <artifactId>lessjar</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
-
+    <repositories>
+        <repository>
+            <id>my-local-repo</id>
+            <url>file://${basedir}/src/test/lib</url>
+        </repository>
+    </repositories>
 	<build>
 		<testResources>
 			<testResource>

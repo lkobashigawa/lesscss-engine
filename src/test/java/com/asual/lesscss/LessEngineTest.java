@@ -35,9 +35,9 @@ import org.junit.Test;
  */
 public class LessEngineTest {
 
-	private static LessEngine engine;
+    private static LessEngine engine;
 
-	@BeforeClass
+    @BeforeClass
 	public static void before() {
 		LessOptions options = new LessOptions();
 		options.setCss(true);
@@ -199,13 +199,13 @@ public class LessEngineTest {
 
 	@Test
 	public void testSample() throws LessException {
-		String expected = ".box {\n  color: #fe33ac;\n"
-				+ "  border-color: #fdcdea;\n}\n.box div {\n"
-				+ "  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
-				+ "  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
-				+ "  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n}\n";
-		String result = engine.compile(getResource("less/sample.less"));
-		assertEquals(expected, result);
+        String sample = ".box {\n  color: #fe33ac;\n"
+                + "  border-color: #fdcdea;\n}\n.box div {\n"
+                + "  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
+                + "  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
+                + "  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n}\n";
+        String result = engine.compile(getResource("less/sample.less"));
+        assertEquals(sample, result);
 	}
 
 	@Test
@@ -219,7 +219,21 @@ public class LessEngineTest {
 						.substring(0, 9));
 	}
 
-	private URL getResource(String path) {
+
+    @Test
+    public void testResourceInJar() throws Exception {
+        String inJar = ".box {\n  color: #fe33ac;\n"
+                + "  border-color: #fdcdea;\n}\n.box div {\n"
+                + "  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
+                + "  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n"
+                + "  -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);\n}\n";
+        LessEngine engine = new LessEngine();
+        URL url = getClass().getClassLoader().getResource("less/injar.less");
+        assertEquals(inJar, engine.compile(url));
+
+    }
+
+    private URL getResource(String path) {
 		return getClass().getClassLoader().getResource("META-INF/" + path);
 	}
 
